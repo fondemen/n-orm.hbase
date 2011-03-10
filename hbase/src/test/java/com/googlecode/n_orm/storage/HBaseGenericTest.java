@@ -1,11 +1,12 @@
-package org.norm.storage;
+package com.googlecode.n_orm.storage;
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.norm.GenericTests;
-import org.norm.StoreTestLauncher;
+
+import com.googlecode.n_orm.GenericTests;
+import com.googlecode.n_orm.StoreTestLauncher;
 
 @RunWith(Suite.class)
 @SuiteClasses(GenericTests.class)

@@ -1,4 +1,4 @@
-package org.norm.hbase;
+package com.googlecode.n_orm.hbase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,13 +35,14 @@ import org.apache.hadoop.hbase.filter.FirstKeyOnlyFilter;
 import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.filter.QualifierFilter;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.norm.CloseableKeyIterator;
-import org.norm.Constraint;
-import org.norm.DatabaseNotReachedException;
-import org.norm.PropertyManagement;
+
+import com.googlecode.n_orm.CloseableKeyIterator;
+import com.googlecode.n_orm.Constraint;
+import com.googlecode.n_orm.DatabaseNotReachedException;
+import com.googlecode.n_orm.PropertyManagement;
 
 
-public class Store implements org.norm.GenericStore {
+public class Store implements com.googlecode.n_orm.GenericStore {
 
 	private static final class CloseableIterator implements Iterator<String>,
 			CloseableKeyIterator {
@@ -654,10 +655,10 @@ public class Store implements org.norm.GenericStore {
 	}
 
 	@Override
-	public org.norm.CloseableKeyIterator get(String table, Constraint c,
+	public com.googlecode.n_orm.CloseableKeyIterator get(String table, Constraint c,
 			int limit) throws DatabaseNotReachedException {
 		if (!this.hasTable(table))
-			return new org.norm.CloseableKeyIterator() {
+			return new com.googlecode.n_orm.CloseableKeyIterator() {
 
 				@Override
 				public void close() {

@@ -1,13 +1,14 @@
-package org.norm.storage;
+package com.googlecode.n_orm.storage;
 
 import java.util.Properties;
 
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.HConstants;
-import org.norm.DatabaseNotReachedException;
-import org.norm.StoreSelector;
-import org.norm.StoreTestLauncher;
-import org.norm.hbase.Store;
+
+import com.googlecode.n_orm.DatabaseNotReachedException;
+import com.googlecode.n_orm.StoreSelector;
+import com.googlecode.n_orm.StoreTestLauncher;
+import com.googlecode.n_orm.hbase.Store;
 
 
 public class HBaseLauncher extends StoreTestLauncher {
@@ -18,15 +19,15 @@ public class HBaseLauncher extends StoreTestLauncher {
 	public static Integer hbaseMaxRetries = 3;
 
 	public static HBaseTestingUtility hBaseServer = null;
-	public static org.norm.hbase.Store hbaseStore;
+	public static com.googlecode.n_orm.hbase.Store hbaseStore;
 
 	public static Properties prepareHBase() {
 		Properties p = new Properties();
-		p.setProperty(StoreSelector.STORE_DRIVERCLASS_PROPERTY, org.norm.hbase.Store.class.getName());
+		p.setProperty(StoreSelector.STORE_DRIVERCLASS_PROPERTY, com.googlecode.n_orm.hbase.Store.class.getName());
 		p.setProperty(StoreSelector.STORE_DRIVERCLASS_STATIC_ACCESSOR, "getStore");
 
 		if (hbaseStore == null && hBaseServer == null) {
-			hbaseStore = org.norm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
+			hbaseStore = com.googlecode.n_orm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
 			try {
 				hbaseStore.start();
 			} catch (DatabaseNotReachedException x) {
@@ -45,7 +46,7 @@ public class HBaseLauncher extends StoreTestLauncher {
 					hbaseHost = hBaseServer.getConfiguration().get(HConstants.ZOOKEEPER_QUORUM);
 					hbasePort = hBaseServer.getConfiguration().getInt("hbase.zookeeper.property.clientPort", HConstants.DEFAULT_ZOOKEPER_CLIENT_PORT);
 					
-					hbaseStore = org.norm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
+					hbaseStore = com.googlecode.n_orm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
 					hbaseStore.setConf(hBaseServer.getConfiguration());
 					hbaseStore.setAdmin(hBaseServer.getHBaseAdmin());
 					hbaseStore.start();
