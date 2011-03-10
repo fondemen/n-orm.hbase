@@ -1,4 +1,4 @@
-package com.mt.storage.hbase;
+package org.norm.hbase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,12 +35,13 @@ import org.apache.hadoop.hbase.filter.FirstKeyOnlyFilter;
 import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.filter.QualifierFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.norm.CloseableKeyIterator;
+import org.norm.Constraint;
+import org.norm.DatabaseNotReachedException;
+import org.norm.PropertyManagement;
 
-import com.mt.storage.CloseableKeyIterator;
-import com.mt.storage.Constraint;
-import com.mt.storage.DatabaseNotReachedException;
 
-public class Store implements com.mt.storage.GenericStore {
+public class Store implements org.norm.GenericStore {
 
 	private static final class CloseableIterator implements Iterator<String>,
 			CloseableKeyIterator {
@@ -77,7 +78,7 @@ public class Store implements com.mt.storage.GenericStore {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see com.mt.storage.hbase.CloseableIterator#close()
+		 * @see org.norm.hbase.CloseableIterator#close()
 		 */
 		@Override
 		public void close() {
@@ -427,6 +428,11 @@ public class Store implements com.mt.storage.GenericStore {
 			}
 		}
 
+		if (rowPut == null && rowDel == null && (increments == null || increments.isEmpty())) {
+			rowPut = new Put(row);
+			rowPut.add(Bytes.toBytes(PropertyManagement.PROPERTY_COLUMNFAMILY_NAME), null, new byte[]{});
+		}
+
 		IOException problem = null;
 
 		try {
@@ -648,10 +654,10 @@ public class Store implements com.mt.storage.GenericStore {
 	}
 
 	@Override
-	public com.mt.storage.CloseableKeyIterator get(String table, Constraint c,
+	public org.norm.CloseableKeyIterator get(String table, Constraint c,
 			int limit) throws DatabaseNotReachedException {
 		if (!this.hasTable(table))
-			return new com.mt.storage.CloseableKeyIterator() {
+			return new org.norm.CloseableKeyIterator() {
 
 				@Override
 				public void close() {

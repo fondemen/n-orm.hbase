@@ -1,11 +1,14 @@
-package com.mt.storage;
+package org.norm.storage;
 
 import java.util.Properties;
 
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.HConstants;
+import org.norm.DatabaseNotReachedException;
+import org.norm.StoreSelector;
+import org.norm.StoreTestLauncher;
+import org.norm.hbase.Store;
 
-import com.mt.storage.hbase.Store;
 
 public class HBaseLauncher extends StoreTestLauncher {
 	private static Properties hbaseProperties = null;
@@ -15,15 +18,15 @@ public class HBaseLauncher extends StoreTestLauncher {
 	public static Integer hbaseMaxRetries = 3;
 
 	public static HBaseTestingUtility hBaseServer = null;
-	public static com.mt.storage.hbase.Store hbaseStore;
+	public static org.norm.hbase.Store hbaseStore;
 
 	public static Properties prepareHBase() {
 		Properties p = new Properties();
-		p.setProperty(StoreSelector.STORE_DRIVERCLASS_PROPERTY, com.mt.storage.hbase.Store.class.getName());
+		p.setProperty(StoreSelector.STORE_DRIVERCLASS_PROPERTY, org.norm.hbase.Store.class.getName());
 		p.setProperty(StoreSelector.STORE_DRIVERCLASS_STATIC_ACCESSOR, "getStore");
 
 		if (hbaseStore == null && hBaseServer == null) {
-			hbaseStore = com.mt.storage.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
+			hbaseStore = org.norm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
 			try {
 				hbaseStore.start();
 			} catch (DatabaseNotReachedException x) {
@@ -42,7 +45,7 @@ public class HBaseLauncher extends StoreTestLauncher {
 					hbaseHost = hBaseServer.getConfiguration().get(HConstants.ZOOKEEPER_QUORUM);
 					hbasePort = hBaseServer.getConfiguration().getInt("hbase.zookeeper.property.clientPort", HConstants.DEFAULT_ZOOKEPER_CLIENT_PORT);
 					
-					hbaseStore = com.mt.storage.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
+					hbaseStore = org.norm.hbase.Store.getStore(hbaseHost, hbasePort, hbaseMaxRetries);
 					hbaseStore.setConf(hBaseServer.getConfiguration());
 					hbaseStore.setAdmin(hBaseServer.getHBaseAdmin());
 					hbaseStore.start();
