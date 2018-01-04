@@ -7,7 +7,7 @@ An example all-configured project (with [Eclipse](http://www.eclipse.org/)+[M2Ec
 
 # Maven integration #
 
-See the [getting started](https://github.com/fondemen/n-orm/wiki/GettingStarted#using-n-orm-with-maven) article, and the [pom](https://github.com/fondemen/n-orm.sample/blob/master/pom.xml) for the sample project.
+See the [getting started](https://github.com/fondemen/n-orm.core/wiki/GettingStarted#using-n-orm-with-maven) article, and the [pom](https://github.com/fondemen/n-orm.sample/blob/master/pom.xml) for the sample project.
 
 Instead of importing the `store` artifact, you can use the `hbase` one:
 ```
@@ -28,7 +28,7 @@ static-accessor=getStore
 1=/usr/lib/hadoop,/usr/lib/hbase
 ```
 
-  * `class` is the name of the [HBase driver](https://fondemen.github.io/n-orm.hbase/hbase/apidocs/index.html?com/googlecode/n_orm/hbase/HBase.html) implementing the [Store interface](https://fondemen.github.io/n-orm/storage/apidocs/index.html?com/googlecode/n_orm/storeapi/Store.html)
+  * `class` is the name of the [HBase driver](https://fondemen.github.io/n-orm.hbase/hbase/apidocs/index.html?com/googlecode/n_orm/hbase/HBase.html) implementing the [Store interface](https://fondemen.github.io/n-orm.core/storage/apidocs/index.html?com/googlecode/n_orm/storeapi/Store.html)
   * `static-accessor=getStore` means that the driver will be retrieved (or instanciated) thanks to the [getStore](https://fondemen.github.io/n-orm.hbase/hbase/apidocs/com/googlecode/n_orm/hbase/HBase.html#getStore(java.lang.String)) static method of the driver.
   * `1` is the value sent to [getStore](https://fondemen.github.io/n-orm.hbase/hbase/apidocs/com/googlecode/n_orm/hbase/HBase.html#getStore(java.lang.String)) as parameter, i.e. a list of places where to find the HBase (and Hadoop) configuration files, binaries and dependencies
 
@@ -36,7 +36,7 @@ Please, note that an [hbase-site.xml](http://hbase.apache.org/book/config.files.
 
 # Where to place `store.properties` ? #
 
-The `store.properties` file will be looked up in the classpath for each [persisting](https://fondemen.github.io/n-orm/storage/apidocs/index.html?com/googlecode/n_orm/Persisting.html) class, first in the same package, then in the package above, etc. For instance, for a classpath set to `srcfolder1:src/folder2:jar1.jar`, the store file for class a.b.C will be searched in the following places:
+The `store.properties` file will be looked up in the classpath for each [persisting](https://fondemen.github.io/n-orm.core/storage/apidocs/index.html?com/googlecode/n_orm/Persisting.html) class, first in the same package, then in the package above, etc. For instance, for a classpath set to `srcfolder1:src/folder2:jar1.jar`, the store file for class a.b.C will be searched in the following places:
   1. `srcfolder1/a/b/store.properties`
   1. `src/folder2/a/b/store.properties`
   1. `a/b/store.properties` from jar file `jar1.jar`
