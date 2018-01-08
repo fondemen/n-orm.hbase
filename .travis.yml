@@ -2,3 +2,5 @@ sudo: required
 language: java
 before_script:
   - .travis/hbase-install.sh
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
