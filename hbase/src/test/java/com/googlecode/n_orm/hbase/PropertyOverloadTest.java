@@ -131,6 +131,7 @@ public class PropertyOverloadTest {
 			
 			HTableDescriptor td = new HTableDescriptor(table);
 			td.setDurability(deferredLogFlush ? Durability.ASYNC_WAL : Durability.SYNC_WAL);
+			td.addFamily(new HColumnDescriptor("props"));
 			if (createDefault) {
 				HColumnDescriptor cd = new HColumnDescriptor(defaultCfField.getName());
 				cd.setInMemory(defaultInMem);

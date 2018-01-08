@@ -113,6 +113,7 @@ public class ConcurrentTest {
 	private void deleteTable(String table) throws IOException {
 		TableName tn = TableName.valueOf(table);
 
+		this.createAdmin();
 		if (this.admin.tableExists(tn)) {
 			this.admin.disableTable(tn);
 			this.admin.deleteTable(tn);
@@ -122,6 +123,7 @@ public class ConcurrentTest {
 	private void disableTable(String table) throws IOException {
 		TableName tn = TableName.valueOf(table);
 
+		this.createAdmin();
 		if (this.admin.tableExists(tn)) {
 			this.admin.disableTable(tn);
 		}
@@ -130,6 +132,7 @@ public class ConcurrentTest {
 	private void truncateTable(String table) throws IOException {
 		TableName tn = TableName.valueOf(table);
 
+		this.createAdmin();
 		if (this.admin.tableExists(tn)) {
 			store1.truncate(null, table, (Constraint)null);
 			assertEquals(0, store1.count(null, table, (Constraint)null));
