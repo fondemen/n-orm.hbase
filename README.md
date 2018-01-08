@@ -1,6 +1,6 @@
 # n-orm.hbase
 
-[![Build Status](https://travis-ci.org/fondemen/n-orm.hbase.svg?branch=hbase-1)](https://travis-ci.org/fondemen/n-orm.hbase)
+[![Build Status](https://travis-ci.org/fondemen/n-orm.hbase.svg?branch=master)](https://travis-ci.org/fondemen/n-orm.hbase)
 
 HBase driver for [n-orm](https://github.com/fondemen/n-orm.core).
 
