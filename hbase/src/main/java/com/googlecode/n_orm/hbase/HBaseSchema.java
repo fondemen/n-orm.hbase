@@ -109,7 +109,7 @@ public @interface HBaseSchema {
 	SettableBoolean forceBloomFilterType() default SettableBoolean.UNSET;
 	/**
 	 * Changes value for {@link Store#getMaxVersions()} for a particular persisting class or column family.
-	 * Possible values are those from {@link org.apache.hadoop.hbase.regionserver.StoreFile.BloomType}, e.g. "NONE" (default), "ROW", or "ROWCOL"
+	 * Possible values are those from {@link org.apache.hadoop.hbase.regionserver.BloomType}, e.g. "NONE" (default), "ROW", or "ROWCOL"
 	 */
 	String bloomFilterType() default "";
 

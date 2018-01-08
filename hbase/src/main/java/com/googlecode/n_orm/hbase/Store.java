@@ -538,7 +538,7 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	}
 
 	/**
-	 * Whether {@link HTableDescriptor#setDeferredLogFlush(boolean)} should be set for tables.
+	 * Whether {@link HTableDescriptor#setDurability(Durability)} should be set for tables (false means {@link Durability#SYNC_WAL} while true means {@link Durability#ASYNC_WAL}).
 	 * Improves write throughput by making writes log asynchronous on the server while improving risk of data loss in case of server crash.
 	 * Default value is HBase default value (false).
 	 * Use this carefully ; read <a href="http://hbase.apache.org/book/perf.writing.html#def.log.flush">the HBase documentation</a>.
@@ -548,7 +548,7 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	}
 
 	/**
-	 * Whether {@link HTableDescriptor#setDeferredLogFlush(boolean)} should be set for tables.
+	 * Whether {@link HTableDescriptor#setDurability(Durability)} should be set for tables (false means {@link Durability#SYNC_WAL} while true means {@link Durability#ASYNC_WAL}).
 	 * Improves write throughput by making writes log asynchronous on the server while improving risk of data loss in case of server crash.
 	 * Default value is HBase default value (false).
 	 * Use this carefully ; read <a href="http://hbase.apache.org/book/perf.writing.html#def.log.flush">the HBase documentation</a>.
@@ -727,7 +727,7 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	/**
 	 * Whether created tables should have {@link HColumnDescriptor#setTimeToLive(int)} set.
 	 * Default value is {@link HColumnDescriptor#DEFAULT_TTL}
-	 * null or value &lt= 0 is considered as unset (i.e. the default value).
+	 * null or value &le; 0 is considered as unset (i.e. the default value).
 	 */
 	public void setTimeToLiveSeconds(Integer timeToLiveSeconds) {
 		PropertyUtils.clearCachedValues();
@@ -763,7 +763,7 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	/**
 	 * Whether created tables should have {@link HColumnDescriptor#setMaxVersions(int)} set.
 	 * Default value is {@link HColumnDescriptor#DEFAULT_VERSIONS}
-	 * null or value &lt= 0 is considered as unset (i.e. the default value).
+	 * null or value &le; 0 is considered as unset (i.e. the default value).
 	 */
 	public void setMaxVersions(Integer maxVersions) {
 		PropertyUtils.clearCachedValues();
@@ -907,7 +907,7 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	/**
 	 * Whether created tables should have {@link HColumnDescriptor#setScope(int)} set.
 	 * Default value is equivalent to {@link HColumnDescriptor#DEFAULT_REPLICATION_SCOPE}
-	 * null or &lt= 0 or &gt=2 is considered as unset (i.e. the default value).
+	 * null or &le; 0or &ge;2 is considered as unset (i.e. the default value).
 	 */
 	public void setReplicationScope(Integer replicationScope) {
 		PropertyUtils.clearCachedValues();
@@ -1050,8 +1050,8 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 	/**
 	 * The configuration to be used by this store for its {@link #start()} or {@link #restart()}.
 	 * Only valid when store is not started yet.
-	 * Overloads any other configuration setting already set by {@link #getStore(String)}, {@link #getStore(String, int)}, {@link #getStore(String, int, Integer)}, or {@link #getAdmin()}.
-	 * Ignored in case of a subsequent {@link #setAdmin(Admin)}.
+	 * Overloads any other configuration setting already set by {@link #getStore(String)}, {@link #getStore(String, int)}, {@link #getStore(String, int, Integer)}, or {@link #setConf(Configuration)}.
+	 * Ignored in case of a subsequent {@link #setConf(Configuration)}.
 	 * Changed when invoked {@link #start()} or {@link #restart()}.
 	 * @throws IllegalStateException if this store was started already
 	 */
