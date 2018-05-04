@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VER=1.4.0
+VER=1.4.4
 DST=/usr/lib
 wget -O hbase-bin.tar.gz http://www-eu.apache.org/dist/hbase/$VER/hbase-$VER-bin.tar.gz
 tar xzf hbase-bin.tar.gz
