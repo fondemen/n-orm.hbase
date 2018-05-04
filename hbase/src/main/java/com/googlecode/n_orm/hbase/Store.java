@@ -131,6 +131,7 @@ import com.googlecode.n_orm.storeapi.Row.ColumnFamilyData;
  */
 public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableStore, GenericStore {
 	private static final String CONF_MAXRETRIES_KEY = "hbase.client.retries.number";
+	private static final String CONF_MAXRETRIES_ZKKEY = "zookeeper.recovery.retry";
 
 	private static final String CONF_PORT_KEY = "hbase.zookeeper.property.clientPort";
 
@@ -280,11 +281,15 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 		return knownStores.get(properties);
 	}
 	
+	static void setKnownStore(Properties props, Store store) {
+		knownStores.put(props, store);
+	}
+	
 	public static Store getStore(Configuration conf, Properties props) throws IOException {
 		if (knownStores.containsKey(props))
 			throw new IllegalStateException("Store already exists with " + props);
 		Store s = new Store(props);
-		s.setConf(conf);
+		if (conf != null) s.setConf(conf);
 		return s;
 	}
 	
@@ -387,8 +392,10 @@ public class Store implements com.googlecode.n_orm.storeapi.Store, ActionnableSt
 			this.config = properties;
 		}
 
-		if (this.maxRetries != null)
+		if (this.maxRetries != null) {
 			this.config.set(CONF_MAXRETRIES_KEY, this.maxRetries.toString());
+			this.config.set(CONF_MAXRETRIES_ZKKEY, this.maxRetries.toString());
+		}
 		
 		if (this.clientTimeout != null)
 			this.config.set(HConstants.HBASE_RPC_TIMEOUT_KEY, this.clientTimeout.toString());
