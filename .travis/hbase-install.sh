@@ -9,3 +9,5 @@ mv .travis/hbase-site.xml hbase-$VER/conf
 sudo mkdir -p $DST
 sudo mv hbase-$VER $DST/hbase
 sudo $DST/hbase/bin/start-hbase.sh
+while sudo hbase $DST/hbase/bin/hbase hbck 2>/dev/null | grep -q -i "INCONSISTENT"; do echo -n "." ; done
+echo " HBase started !"
