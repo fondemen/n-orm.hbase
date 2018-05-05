@@ -6,7 +6,7 @@
 HBase driver for [n-orm](https://github.com/fondemen/n-orm.core).
 
 The first developed driver for n-orm targets [HBase](http://hbase.apache.org/).
-An example all-configured project (with [Eclipse](http://www.eclipse.org/)+[M2Eclipse](http://www.eclipse.org/m2e/)+[AJDT](http://www.eclipse.org/ajdt/)) is the [sample project](https://github.com/fondemen/n-orm.sample).
+An example all-configured project (with [Eclipse](http://www.eclipse.org/)+[M2Eclipse](http://www.eclipse.org/m2e/)+[AJDT](http://www.eclipse.org/ajdt/)) is the [sample project](https://github.com/fondemen/n-orm.sample/tree/hbase-1.0).
 
 # Maven integration #
 
